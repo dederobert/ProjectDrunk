@@ -19,8 +19,12 @@ class Drunk
 {
 	public static function start()
 	{
-		var_dump($_SERVER['REQUEST_URI']);
-		
+		$Url = $_SERVER['REQUEST_URI'];
+		$chars = preg_split ( '#fr/#' , $Url, -1, PREG_SPLIT_NO_EMPTY);
+		print_r($chars);
+		$chars2 = explode( '/', $chars[1]);
+		print_r($chars2);
+
 	}
 }
  ?>
