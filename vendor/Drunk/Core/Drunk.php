@@ -15,6 +15,9 @@ namespace Drunk\Core;
 */
 class Drunk
 {
-	
+	public static function start()
+	{
+		echo 'ça marche';
+	}
 }
  ?>
