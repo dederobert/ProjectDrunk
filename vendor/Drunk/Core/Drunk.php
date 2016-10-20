@@ -17,7 +17,7 @@ class Drunk
 {
 	public static function start()
 	{
-		echo 'ça marche';
+		var_dump($_SERVER['REQUEST_URI']);
 	}
 }
  ?>

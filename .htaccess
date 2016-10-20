@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# Le fichier existe
+# -s test chemin et si fichier > 0octet
+# -l test chemin et si lien symbolique
+# -d test chemin et si repertoire
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+
+# Gère l'url d'un fichier qui n'existe pas
+RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
+RewriteRule ^(.*) - [E=BASE:%1]
+RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
+
+Options -Indexes
