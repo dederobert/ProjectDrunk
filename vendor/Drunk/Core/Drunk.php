@@ -27,6 +27,7 @@ class Drunk
 	*/ 
 	
 	private static $router;
+	private static $needRoute = true;
 	
 	public static function start()
 	{
@@ -36,27 +37,35 @@ class Drunk
 		$chars2 = explode( '/', $chars[1]);
 		
 		Drunk::$router = new Router($chars2[0],$chars2[1],array_splice($chars2, 2, count($chars2)));
-		Drunk::callController();
+		Drunk::route();
 	}
 	
-	public static function callController() {
-		if (file_exists(Drunk::$router->controllerFile)) {
-			 include Drunk::$router->controllerFile;
-			if (class_exists('App\\Controller\\'.Drunk::$router->controllerName,false)) {
-				$nsp_ctrl_name = 'App\\Controller\\'.Drunk::$router->controllerName;
-				$controller = new $nsp_ctrl_name();
-				if (method_exists($controller, Drunk::$router->actionName)) {
-					$action_name = Drunk::$router->actionName;
-					$controller->$action_name(...Drunk::$router->params);
-				}else{
-					throw new Exception("The method ".Drunk::$router->actionName." not found",404);
+	public static function route() {
+		while(Drunk::$needRoute) {
+			Drunk::$needRoute = false;
+			if (file_exists(Drunk::$router->controllerFile)) {
+				 include Drunk::$router->controllerFile;
+				if (class_exists('App\\Controller\\'.Drunk::$router->controllerName,false)) {
+					$nsp_ctrl_name = 'App\\Controller\\'.Drunk::$router->controllerName;
+					$controller = new $nsp_ctrl_name();
+					if (method_exists($controller, Drunk::$router->actionName)) {
+						$action_name = Drunk::$router->actionName;
+						$controller->$action_name(...Drunk::$router->params);
+					}else{
+						throw new Exception("The method ".Drunk::$router->actionName." not found",404);
+					}
+				}else {
+					throw new Exception("The controller class ".Drunk::$router->controllerName." not found",404);
 				}
-			}else {
-				throw new Exception("The controller class ".Drunk::$router->controllerName." not found",404);
+			}else{
+				throw new FileException("Controller file ".Drunk::$router->controllerFile." not found");
 			}
-		}else{
-			throw new FileException("Controller file ".Drunk::$router->controllerFile." not found");
 		}
+	}
+	
+	public static function needRoute($router) {
+		Drunk::$router = $router;
+		Drunk::$needRoute = true;
 	}
 }
  ?>
