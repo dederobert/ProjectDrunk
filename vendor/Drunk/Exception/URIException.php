@@ -2,7 +2,7 @@
 /**
 * File Exception.php
 *
-* PHP version 7
+* PHP version 5
 * @category Exception
 * @package Exception
 * @link /
@@ -12,13 +12,12 @@
 
 namespace Drunk\Exception;
 
-use RuntimeException;
+use Drunk\Exception\Exception;
 
 /**
-* Base class for dust exception 
+* Exception to manage malformed uri
 */
-class Exception extends RuntimeException
-{
+class URIException extends Exception {
 	/**
 	* Constructor
 	*
@@ -28,9 +27,9 @@ class Exception extends RuntimeException
 	* @param int $code The error code is also the HTTP statut 
 	* @param \Exception|null $previous the previous exception 
 	*/
-	public function __construct($message, $code = 500,Exception $previous = null)
+	public function __construct($message, \Exception $previous =null)
 	{
-		parent::__construct($message, $code, $previous);
+		parent::__construct($message,404,$previous);
 	}
 }
  ?>

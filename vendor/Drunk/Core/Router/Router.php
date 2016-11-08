@@ -1,8 +1,11 @@
 <?php
+namespace Drunk\Core\Router;
 use Drunk\Exception\Exception;
 use Drunk\Core\Router\Request;
 
-namespace Drunk\Core\Router;
+/**
+* 
+*/
 class Router{
 	
 	public $controllerName;
@@ -10,17 +13,22 @@ class Router{
 	public $params = array();
 
 	public function __construct($nomControler = null, $nomAction = null, $tableauParam=null){
-		if (!is_null($tableauParam)&&!is_numeric($tableauParam)) 
+		
+		if (!is_null($tableauParam)&&!is_array($tableauParam)) 
 			throw new Exception("Les parametres doivent être un tableau");
 
-		$this->controllerName = $nomControler;
-		$this->nomAction = $nomAction;
+		$this->controllerName = $nomControler."Controller";
+		$this->actionName= $nomAction;
 		$this->params = $tableauParam;
 	}	
 
-	public function route()
+	public function __get($property)
 	{
-		
+		if ($property === "controllerFile") {
+			return PARTS_PATH.DS."Controller".DS.$this->controllerName.".php";
+		}else if($property === "controllerName") {
+			return $this->controllerName;
+		}
 	}
 }
 ?>

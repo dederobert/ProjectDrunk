@@ -12,8 +12,15 @@
 define('DS', DIRECTORY_SEPARATOR);
 define('CONF_PATH', join(DS, array(dirname(__DIR__), 'config')));
 
+include CONF_PATH.DS."config.php";
+
 spl_autoload_register(function($class)
 {
-	include  $class . '.php';
+	if (strpos($class,'App') !== false) {
+		str_replace("App", "..".DS."parts",$class);
+		include $class.".php";
+	}else{
+		include  __DIR__.DS.$class . '.php';		
+	}
 });
  ?>
