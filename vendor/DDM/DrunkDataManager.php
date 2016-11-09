@@ -21,18 +21,30 @@ use Drunk\Exception\FileException;
 */
 class DrunkDataManager
 {
+
+	private static $instance;
+	public static $dataFolder = ROOT.DS."data";
 	
-	private $dataLoaders;
+	private $sourceLoaders = array();
 
-	function __construct()
-	{}
+	private function __construct()
+	{
+		if (!is_dir(self::$dataFolder)) {
+			mkdir(self::$dataFolder);
+		}else{
+			if (!is_writable(self::$dataFolder)) throw new FileException("The data folder is not writable", 500);
+		}	
+	}
 
-	function load($dataFileName) {
-		try{
-			$this->dataLoader[] = new DataLoader(DATA_PATH.DS.$dataFileName);
-		}catch(FileException $e){
-			throw new FileException("The file ".$dataFileName." not exists",500,$e);
-		}
+	function load($source, $create) {
+		$this->sourceLoader[] = $source;
+		$source->load($create);
+	}
+
+	public static function getInstance()
+	{
+		if (self::$instance == null) self::$instance = new self();
+		return self::$instance;
 	}
 }
  ?>
