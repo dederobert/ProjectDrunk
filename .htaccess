@@ -1,5 +1,6 @@
 RewriteEngine On
 
+
 # Le fichier existe
 # -s test chemin et si fichier > 0octet
 # -l test chemin et si lien symbolique

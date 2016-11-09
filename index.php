@@ -24,24 +24,31 @@ use Drunk\Exception\FileException;
 use Drunk\Core\Drunk;
 use Drunk\Core\Router\Router;
 
+// TODO Temporaire
+use App\Models\Users;
+$user;
+// Fin temporaire
+
 // Demarrage de drunk
 Drunk::start(@$_GET['req']);
 
 try{
 	$ddm = DrunkDataManager::getInstance();
 	$ddm->load(new File("Donnees.inc.php"), false);
-
-	if (isset($_SESSION['user'])) {
-		$userFile = new File("users/dinquer1u.json", "rw");
+	//if (isset($_SESSION['user'])) {
+		$userFile = new File("users/dinquer1u", "rw");
 		$ddm->load($userFile, true);
-		$_SESSION['user'] = json_decode($userFile->read());
-	}
+		$user = unserialize($userFile->read());
+	//}else{
+	//	$user = new Users("dinquer1u", "mm", "Dinquer", "Alexis");
+	//}
+		var_dump($user);
 
 	
 	Drunk::run();
-	if (isset($_SESSION['user'])) {
-		$userFile->write(json_encode($_SESSION['user']));
-	}
+	//if (isset($_SESSION['user'])) {
+		$userFile->write(serialize($user));
+	//}
 }catch(Exception $e){
 	Drunk::run(new Router("error", "e".$e->getCode(), [$e]));
 }

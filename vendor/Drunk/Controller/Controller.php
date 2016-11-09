@@ -21,10 +21,13 @@ class Controller
 	private $callAction;
 	private $scope = null;
 
+	private $models = array();
+
 	public function __construct($scope, $name, $callAction = "index") {
 		$this->scope = $scope;
 		$this->name = str_replace("Controller", "", $name);
 		$this->callAction = $callAction;
+		$this->loadModel($this->name);
 	}
 
 	/**
@@ -55,15 +58,22 @@ class Controller
 		$this->scope->$name = $value;
 	}
 
-	public function renderView($folderName, $viewName)
+	protected function renderView($folderName, $viewName)
 	{
 		Drunk::render($folderName, $viewName);
 	}
 
-	public function renderLayout($layoutName)
+	protected function renderLayout($layoutName)
 	{
 		# code...
 	}
 
+	protected function loadModel($modelName)
+	{
+		if (file_exists(PARTS_PATH.DS."Model".DS.$modelName.".php")) {
+			$nsp_model = "App\\Models\\".$modelName;
+			if (class_exists($nsp_model, true)) $this->models[] = new $nsp_model();
+		}
+	}
 }
  ?>
