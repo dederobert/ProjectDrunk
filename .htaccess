@@ -12,6 +12,6 @@ RewriteRule ^.*$ - [NC,L]
 # Gère l'url d'un fichier qui n'existe pas
 RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
 RewriteRule ^(.*) - [E=BASE:%1]
-RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
+RewriteRule ^(.*)/?$ %{ENV:BASE}index.php?req=$1 [NC,L]
 
 Options -Indexes

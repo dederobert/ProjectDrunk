@@ -29,15 +29,17 @@ class Drunk
 	private static $router;
 	private static $needRoute = true;
 	
-	public static function start()
+	public static function start($request)
 	{
-		$Url = $_SERVER['REQUEST_URI'];
-		if (strpos($Url, 'fr') === false) throw new URIException("The request URI have to contains the local name ! ex: drunk/fr/...");
-		$chars = preg_split ( '#fr/#' , $Url, -1, PREG_SPLIT_NO_EMPTY);
-		$chars2 = explode( '/', $chars[1]);
-		
-		Drunk::$router = new Router($chars2[0],$chars2[1],array_splice($chars2, 2, count($chars2)));
-		Drunk::route();
+		if ($request != null) {
+			$chars2 = explode( '/', $request);
+			
+			Drunk::$router = new Router($chars2[0],$chars2[1],array_splice($chars2, 2, count($chars2)));
+			Drunk::route();
+		}else {
+			//Page par defaut
+			echo ':D';
+		}
 	}
 	
 	public static function route() {

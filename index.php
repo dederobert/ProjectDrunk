@@ -11,5 +11,5 @@
  */ 
 require join(DIRECTORY_SEPARATOR, array(__DIR__, 'vendor', 'autoload.php'));
 
-Drunk\Core\Drunk::start();
+Drunk\Core\Drunk::start(@$_GET['req']);
 ?>
