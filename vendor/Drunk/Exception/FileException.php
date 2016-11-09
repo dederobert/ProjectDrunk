@@ -28,9 +28,9 @@ class FileException extends RuntimeException
 	* @param int $code The error code is also the HTTP statut 
 	* @param \Exception|null $previous the previous exception 
 	*/
-	public function __construct($message, $code = 500)
+	public function __construct($message, $code = 404, $previous = null)
 	{
-		parent::__construct($message, $code, null);
+		parent::__construct($message, $code, $previous);
 	}
 }
  ?>

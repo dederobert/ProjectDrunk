@@ -9,7 +9,28 @@
  * @since Version 0.0.1
  * @version 0.0.1
  */ 
+
+// Definition des constantes
+define('DS', DIRECTORY_SEPARATOR);
+define('CONF_PATH', join(DS, array(__DIR__, 'config')));
+include CONF_PATH.DS."config.php";
+
+// Inclusion de l'autoload
 require join(DIRECTORY_SEPARATOR, array(__DIR__, 'vendor', 'autoload.php'));
 
-Drunk\Core\Drunk::start(@$_GET['req']);
+use DDM\DrunkDataManager;
+use Drunk\Exception\FileException;
+use Drunk\Core\Drunk;
+use Drunk\Core\Router\Router;
+
+// Demarrage de drunk
+Drunk::start(@$_GET['req']);
+
+try{
+	$ddm = new DrunkDataManager();
+	$ddm->load("Donnees.inc.php");
+	Drunk::run();
+}catch(Exception $e){
+	Drunk::run(new Router("error", "e".$e->getCode(), [$e]));
+}
 ?>
