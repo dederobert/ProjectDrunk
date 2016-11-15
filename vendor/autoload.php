@@ -14,11 +14,11 @@
 spl_autoload_register(function($class)
 {
 	if (strpos($class,'App') !== false) {
-		include str_replace("App", "parts",$class).".php";
+		require str_replace("App", "parts",$class).".php";
 		//echo $class;
 		//include $class.".php";
 	}else{
-		include  __DIR__.DS.$class . '.php';	
+		require  __DIR__.DS.$class . '.php';	
 	}
 });
  ?>

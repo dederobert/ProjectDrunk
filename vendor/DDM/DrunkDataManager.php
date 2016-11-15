@@ -39,12 +39,29 @@ class DrunkDataManager
 	function load($source, $create) {
 		$this->sourceLoader[] = $source;
 		$source->load($create);
+		return $source;
 	}
 
 	public static function getInstance()
 	{
 		if (self::$instance == null) self::$instance = new self();
 		return self::$instance;
+	}
+
+	public function save_all()
+	{
+		foreach ($this->sourceLoader as $source) {
+			if ($source->dirty) {
+				$source->save();
+			}
+		}
+	}
+
+	public function get($i)
+	{
+		if ($i < count($this->sourceLoaders) && $i >= 0) {
+			return $this->sourceLoader[$i];
+		}
 	}
 }
  ?>

@@ -18,10 +18,11 @@ use Drunk\Exception\Exception;
  /**
   * 
   */
-  class Source
+  abstract class Source
   {
   	private $name;
   	protected $mode;
+    protected $dirty = false;
 
   	private $valideMode = ['r','rw','w'];
 
@@ -33,8 +34,15 @@ use Drunk\Exception\Exception;
   		$this->mode = $mode;
   	}
 
-  	public function load($create)
-  	{}
+    public function __get($name)
+    {
+      if ($name=="dirty")
+        return $this->dirty;
+    }
 
+  	public abstract function load($create);
+
+    public function save()
+    {}
 
   } ?>

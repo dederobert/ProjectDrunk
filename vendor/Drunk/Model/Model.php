@@ -19,6 +19,11 @@
   class Model
   {
   	
-  	function __construct() {}
+  	function __construct() {
+  		$this->init();
+  	}
+
+  	public function init()
+  	{}
 
   } ?>

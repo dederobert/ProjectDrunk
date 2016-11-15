@@ -48,7 +48,7 @@ class Drunk
 	*/
 	public static function run($router = null) {
 		//On reset les variables
-		Drunk::$view = null;
+		Drunk::$view = new View();
 		$max_redirection = 5;
 		if ($router == null) {$router = Drunk::$router;}
 		
@@ -64,15 +64,20 @@ class Drunk
 
 		if ($max_redirection == 0 && Drunk::$needRoute) {throw new Exception("The redirection system create an infinite loop", 500);}
 
-		if (Drunk::$view == null) {
-			Drunk::$view = new View(join(DS,array(PARTS_PATH,"Template",$controller->name,$controller->callAction.".php")));
+		if (!Drunk::$view->ready) {
+			self::loadRender($controller->name, $controller->callAction);
 		}
-		Drunk::$view->load($controller->scope);
+		Drunk::$view->load($controller->scope, $controller->breadcrumb);
 	}
 	
-	public static function render($folderName,$viewName)
+	public static function loadRender($folderName,$viewName)
 	{
-		Drunk::$view = new View(join(DS,array(PARTS_PATH,"Template",$folderName,$viewName.".php")));
+		Drunk::$view->view = join(DS,array(PARTS_PATH,"Template",$folderName,$viewName.".php"));
+	}
+
+	public static function loadLayout($layoutName)
+	{
+		Drunk::$view->layout = join(DS,array(PARTS_PATH,"Template","layout",$layoutName.".php"));
 	}
 
 	public static function needRoute($router) {

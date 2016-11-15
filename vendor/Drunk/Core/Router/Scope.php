@@ -40,6 +40,7 @@ class Scope
 			return $this->vars;
 		else
 			return $this->vars[$name];
+
 	}
 }
 ?>
