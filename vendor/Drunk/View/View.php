@@ -3,7 +3,47 @@ namespace Drunk\View;
 
 use Drunk\Exception\FileException;
 use Drunk\Core\Router\Scope;
+/*
+* HELPERS
+*/
 
+/**
+* Create a URL
+* 
+* @param $uri array
+*	- controller
+*	- action
+*	- params array
+*/
+function URL($uri = array())
+{
+	$tmp = !isset($uri['params'])?$uri['params']:[];
+	if (isset($uri['controller'])) {
+		if (isset($uri['action'])) {
+			return join(DS ,array(BASE_URL, $uri['controller'], $uri['action'], ...$tmp));	
+		}else {
+			return join(DS ,array(BASE_URL, $uri['controller'], 'index', ...$tmp));
+		}
+	}
+}
+
+/**
+* Return the path of given image name if exist
+* 
+* @return The path of image
+* @throws FileException, if the given file doesn't exist
+*/
+function img($name) {
+	if (file_exists(join(DS, array(WWW, "imgs", $name)))) {
+		return WWW."/imgs/".$name;
+	}else{
+		throw new FileException("Image file ".$name." not found", 404);
+	}
+}
+
+/**
+*
+*/
 class View {
 	
 	private $viewPath;
@@ -55,22 +95,4 @@ class View {
 	}
 
 }
-
-/*
-* HELPERS
-*/
-
-/**
-* Create a URL
-* 
-* @param $uri array
-*	- controller
-*	- action
-*	- params array
-*/
-function URL($uri = array())
-{
-	return "";	
-}
-
 ?>

@@ -5,6 +5,7 @@
 	<title>Project drunk</title>
 </head>
 <body>
+	<?php var_dump(Drunk\View\URL(['controller' => 'test', 'action' => 'truc'])) ?>
 	<nav>
 		<ul>
 			<li><a href="<?php echo BASE_URL.DS ?>">Home</a></li>
