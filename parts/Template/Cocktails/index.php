@@ -9,15 +9,16 @@
 		</form>
 	</div>
 </nav>
-<a href="<?php echo BASE_URL.DS."pages".DS."test".DS."1"; ?>">Test fil d'arianne</a>
+<?php echo URLHelper::link(
+	['controller' => 'pages', 'action' => 'test', 'params' => ['1']], 
+	"Test fil d'arianne"
+); ?>
 <h1>Cocktails</h1>
 <ul class="collection">
 	<?php foreach ($cocktails as $cocktail): ?>
 	<li class="collection-item avatar">
 		<div>
-			<?php if (file_exists(WWW.DS."imgs".DS."Photos".DS.$cocktail['titre'].".jpg")): ?>
-				<img src="<?php echo BASE_URL.DS."www".DS."imgs".DS."Photos".DS.$cocktail['titre'].".jpg" ?>" alt="<?php echo $cocktail['titre'] ?>" class="circle">
-			<?php endif ?>
+			<?php echo ImgHelper::img("Photos/".$cocktail['titre'].".jpg", ['alt' => $cocktail['titre'], 'not_found' => '', 'class' => 'circle']) ?>
 			<span class="title"><?php echo $cocktail['titre'] ?></span>
 
 			<p><?php echo $cocktail['preparation'] ?></p>
