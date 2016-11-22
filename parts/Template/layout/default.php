@@ -10,9 +10,6 @@
 		<ul>
 			<li><a href="<?php echo URLHelper::URL(); ?>">Home</a></li>
 			<li><a href="<?php echo URLHelper::URL(['controller' => 'cocktails']);?>">Cocktails</a></li>
-			<li><a href="#">M3</a></li>
-			<li><a href="#">M4</a></li>
-			<li><a href="#">M5</a></li>
 		</ul>
 	</nav>
 	<div class="container">
@@ -39,7 +36,7 @@
 		</div>
 		<div class="footer-copyright">
 			<div class="container">
-				&copy;&nbsp;2016 
+				&copy;&nbsp;2016 The A-Team 
 			</div>
 		</div>
 	</footer>

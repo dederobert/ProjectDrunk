@@ -13,12 +13,11 @@
 
 spl_autoload_register(function($class)
 {
+	$path = str_replace('\\', DS, $class);
 	if (strpos($class,'App') !== false) {
-		require str_replace("App", "parts",$class).".php";
-		//echo $class;
-		//include $class.".php";
+		require str_replace("App", "parts",$path).".php";
 	}else{
-		require  __DIR__.DS.$class . '.php';	
+		require  __DIR__.DS.$path . '.php';	
 	}
 });
  ?>

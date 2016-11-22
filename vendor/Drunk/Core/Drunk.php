@@ -38,7 +38,7 @@ class Drunk
 			$chars2 = explode( '/', $request);
 			Drunk::$router = new Router($chars2[0],$chars2[1],array_splice($chars2, 2, count($chars2)));
 		}else {
-			Drunk::$router = new Router("pages","view",["home"]);
+			Drunk::$router = new Router("pages","view",array("home"));
 		}
 	}
 	

@@ -29,6 +29,6 @@ Drunk::start(@$_GET['req']);
 try{
 	Drunk::run();
 }catch(Exception $e){
-	Drunk::run(new Router("error", "e".$e->getCode(), [$e]));
+	Drunk::run(new Router("error", "e".$e->getCode(), array($e)));
 }
 ?>
