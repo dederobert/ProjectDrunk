@@ -35,7 +35,7 @@ class Ingredients extends Model
 	{
 		$ingredients = array();
 		
-		foreach ($hierarchie as $ingredient) {
+		foreach ($this->hierarchie as $ingredient) {
 			$ingredients[] = $ingredient;
 		}
 		return $ingredients;
@@ -43,8 +43,8 @@ class Ingredients extends Model
 
 	public function get($ingredient)
 	{
-		if (isset($hierarchie[$ingredient])) {
-			return $hierarchie[$ingredient];
+		if (isset($this->hierarchie[$ingredient])) {
+			return $this->hierarchie[$ingredient];
 		}
 		return false;
 	}
