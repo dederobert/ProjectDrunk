@@ -45,7 +45,8 @@
         }
       } 
       // Il inclus seulement les fichiers PHP
-      if (mime_content_type(DrunkDataManager::$dataFolder.DS.$this->name) == "text/x-php")
+      if (strrpos(DrunkDataManager::$dataFolder.DS.$this->name, ".php") !== false) 
+      //$this->_mime_content_type(DrunkDataManager::$dataFolder.DS.$this->name) == "text/x-php")
         include_once DrunkDataManager::$dataFolder.DS.$this->name;
       $this->content['Recettes'] = $Recettes;
       $this->content['Hierarchie'] = $Hierarchie;
