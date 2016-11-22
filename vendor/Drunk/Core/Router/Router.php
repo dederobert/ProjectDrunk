@@ -41,7 +41,7 @@ class Router{
 				$nsp_ctrl_name = 'App\\Controller\\'.$this->controllerName;
 				//On récupère le scope de la redirection précedante
 				$previous_scp = (isset($controller)?$controller->scope:null);
-				$controller = new $nsp_ctrl_name(new Scope($previous_scp), $this->controllerName, $this->actionName);
+				$controller = new $nsp_ctrl_name(new Scope($previous_scp), $this->controllerName, $this->actionName, $this->params);
 				if (method_exists($controller, $this->actionName)) {
 					$action_name = $this->actionName;
 					$controller->$action_name(...$this->params);

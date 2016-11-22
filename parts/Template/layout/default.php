@@ -13,6 +13,7 @@
 		</ul>
 	</nav>
 	<div class="container">
+	<?php var_dump(!empty($breadcrumb)) ?>
 		<?php if (!empty($breadcrumb)): ?>
 			<nav>
 				<div class="nav-wrapper">

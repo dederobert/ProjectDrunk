@@ -18,6 +18,7 @@ class Controller
 	
 	private $name;
 	private $callAction;
+	private $params = array();
 	private $scope = null;
 	private $breadState;
 	private $breadcrumb = array();
@@ -31,11 +32,12 @@ class Controller
 	* @param $callAction String
 	* @param $breadState int -1: no breadcrumb, 0: head of breadcrumb, 1: child in breadcrumb
 	*/
-	public function __construct($scope, $name, $callAction = "index", $breadState = -1) {
+	public function __construct($scope, $name, $callAction = "index", $params = array(), $breadState = -1) {
 		$this->breadState = $breadState;
 		$this->scope = $scope;
 		$this->name = str_replace("Controller", "", $name);
 		$this->callAction = $callAction;
+		$this->params = $params;
 		
 		$this->breadKey = $this->name;
 		$this->loadModel($this->name);
@@ -106,6 +108,8 @@ class Controller
 			return $this->name;
 		elseif ($name == "callAction")
 			return $this->callAction;
+		elseif ($name == "params")
+			return $this->params;
 		elseif ($name === "breadcrumb")
 			return $this->breadcrumb;
 		elseif ($name === "parent") {
