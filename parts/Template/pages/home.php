@@ -1,4 +1,4 @@
-<h1>Project Drunk - <?php echo $title; ?></h1>
+<h1>Project Drunk - Bienvenue</h1>
 <h2>TODO</h2>
 <ul>
 	<li>Modifier le breadcrumb:
