@@ -13,7 +13,8 @@ session_start();
 // Definition des constantes
 define('DS', DIRECTORY_SEPARATOR);
 define('CONF_PATH', join(DS, array(__DIR__, 'config')));
-define('BASE_URL', $_SERVER['REDIRECT_BASE']);//substr(__DIR__, strrpos(__DIR__, '\\', -strlen(dirname(__DIR__)))));
+define('BASE_URL', isset($_SERVER['REDIRECT_BASE'])?$_SERVER['REDIRECT_BASE']:$_SERVER['REQUEST_URI']);
+//substr(__DIR__, strrpos(__DIR__, '\\', -strlen(dirname(__DIR__)))));
 include CONF_PATH.DS."config.php";
 
 // Inclusion de l'autoload
@@ -22,6 +23,7 @@ require join(DIRECTORY_SEPARATOR, array(__DIR__, 'vendor', 'autoload.php'));
 use Drunk\Exception\FileException;
 use Drunk\Core\Drunk;
 use Drunk\Core\Router\Router;
+// var_dump($_SERVER);
 // Demarrage de drunk
 Drunk::start(@$_GET['req']);
 

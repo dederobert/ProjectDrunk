@@ -17,12 +17,12 @@ class URLHelper
 	{
 		if (isset($uri['controller'])) {
 			if (isset($uri['action'])) {
-				return join('/' ,array_merge(array(BASE_URL, $uri['controller'], $uri['action']), isset($uri['params'])?$uri['params']:[]));	
+				return BASE_URL.join('/' ,array_merge(array($uri['controller'], $uri['action']), isset($uri['params'])?$uri['params']:[]));	
 			}else {
-				return join('/' ,array_merge(array(BASE_URL, $uri['controller'], 'index'), isset($uri['params'])?$uri['params']:[]));
+				return BASE_URL.join('/' ,array_merge(array($uri['controller'], 'index'), isset($uri['params'])?$uri['params']:[]));
 			}
 		}else{
-			return join('/', array(BASE_URL));
+			return BASE_URL;
 		}
 	}
 
