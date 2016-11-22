@@ -20,7 +20,7 @@ class ImgHelper
 			'not_found' => false
 		];
 		if (file_exists(join(DS, array(WWW, "imgs", $name)))) {
-			return '<img src="'.BASE_URL."imgs/".$name.'" alt="'.$options['alt'].'" class="'.$options['class'].'"/>';
+			return '<img src="'.BASE_URL."www/imgs/".$name.'" alt="'.$options['alt'].'" class="'.$options['class'].'"/>';
 		}else{
 			if ($options['not_found'] !== false) {
 				return $options['not_found'];
