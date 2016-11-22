@@ -28,17 +28,12 @@ class Ingredients extends Model
 	{
 		$ddm = DrunkDataManager::getInstance();
 		$this->file = $ddm->load(new File("Donnees.inc.php"), false);
-		$hierarchie = $this->file->read()['Hierarchie'];
+		$this->hierarchie = $this->file->read()['Hierarchie'];
 	}
 
 	public function getAll()
 	{
-		$ingredients = array();
-		
-		foreach ($this->hierarchie as $ingredient) {
-			$ingredients[] = $ingredient;
-		}
-		return $ingredients;
+		return $this->hierarchie['Aliment'];
 	}
 
 	public function get($ingredient)
