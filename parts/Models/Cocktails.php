@@ -33,5 +33,17 @@ class Cocktails extends Model
 	{
 		return $this->file->read()['Recettes'];
 	}
+
+	public function getByIngredient($ingredient)
+	{
+		$tmp = array();
+		$recettes = $this->file->read()['Recettes']; 
+		foreach ($recettes as $cocktail) {
+			if (in_array($ingredient, $recettes)) {
+				$tmp[] = $cocktail;
+			}
+		}
+		return $tmp;
+	}
 }
  ?>

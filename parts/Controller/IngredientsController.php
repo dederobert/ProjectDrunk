@@ -16,6 +16,7 @@ use Drunk\Controller\Controller;
 
 //TEMP
 use App\Models\Ingredients;
+use App\Models\Cocktails;
 /**
 * 
 */
@@ -35,13 +36,17 @@ class IngredientsController extends Controller
 	public function index()
 	{
 		$model = new Ingredients();
+		$ingredient = new Cocktails();
 		$this->set("ingredients", $model->getAll());
+		$this->set("cocktails", $ingredient->getByIngredient("Aliment"));
 	}
 	
 	public function view($ingredient){
 		$model = new Ingredients();
+		$ingredient = new Cocktails();
 		$this->set("ingredients", $model->get($ingredient));
 		$this->renderView("ingredients", 'index');
+		$this->set("cocktails", $ingredient->getByIngredient($ingredient));
 	}
 }
   ?>

@@ -35,21 +35,22 @@
 
     public function load($create)
     {
-      if (!file_exists(DrunkDataManager::$dataFolder.DS.$this->name)) {
-        if ($create) {
-          mkdir(DrunkDataManager::$dataFolder.DS.dirname($this->name));
-          file_put_contents(DrunkDataManager::$dataFolder.DS.$this->name, "");
-        }else {
-          throw new FileException("The request data file ".$this->name." not found", 500);
-          
+      if ($this->content == null) {
+        if (!file_exists(DrunkDataManager::$dataFolder.DS.$this->name)) {
+          if ($create) {
+            mkdir(DrunkDataManager::$dataFolder.DS.dirname($this->name));
+            file_put_contents(DrunkDataManager::$dataFolder.DS.$this->name, "");
+          }else {
+            throw new FileException("The request data file ".$this->name." not found", 500);
+          }
         }
-      } 
-      // Il inclus seulement les fichiers PHP
-      if (strrpos(DrunkDataManager::$dataFolder.DS.$this->name, ".php") !== false) 
-      //$this->_mime_content_type(DrunkDataManager::$dataFolder.DS.$this->name) == "text/x-php")
-        include_once DrunkDataManager::$dataFolder.DS.$this->name;
-      $this->content['Recettes'] = $Recettes;
-      $this->content['Hierarchie'] = $Hierarchie;
+        // Il inclus seulement les fichiers PHP
+        if (strrpos(DrunkDataManager::$dataFolder.DS.$this->name, ".php") !== false) 
+          include_once DrunkDataManager::$dataFolder.DS.$this->name;
+        //$this->_mime_content_type(DrunkDataManager::$dataFolder.DS.$this->name) == "text/x-php")
+        $this->content['Recettes'] = $Recettes;
+        $this->content['Hierarchie'] = $Hierarchie;
+      }
     }
 
     public function write($data, $inFile = true)

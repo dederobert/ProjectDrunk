@@ -38,6 +38,8 @@ use Drunk\Exception\Exception;
     {
       if ($name=="dirty")
         return $this->dirty;
+      elseif ($name == "name")
+        return $this->name;
     }
 
   	public abstract function load($create);

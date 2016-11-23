@@ -37,9 +37,13 @@ class DrunkDataManager
 	}
 
 	function load($source, $create) {
-		$this->sourceLoader[] = $source;
-		$source->load($create);
-		return $source;
+		if (!isset($this->sourceLoaders[$source->name])) {
+			$this->sourceLoaders[$source->name] = $source;
+			$source->load($create);
+			return $source;
+		}else{
+			return $this->sourceLoaders[$source->name];
+		}
 	}
 
 	public static function getInstance()

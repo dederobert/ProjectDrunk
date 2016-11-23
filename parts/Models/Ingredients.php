@@ -38,6 +38,7 @@ class Ingredients extends Model
 
 	public function get($ingredient)
 	{
+		var_dump($ingredient);
 		if (isset($this->hierarchie[$ingredient])) {
 			return $this->hierarchie[$ingredient];
 		}

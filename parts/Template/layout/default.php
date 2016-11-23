@@ -9,14 +9,13 @@
 	<nav>
 		<ul>
 			<li><a href="<?php echo URLHelper::URL(); ?>">Home</a></li>
-			<li><a href="<?php echo URLHelper::URL(['controller' => 'cocktails']);?>">Cocktails</a></li>
+			<li><a href="<?php echo URLHelper::URL(['controller' => 'ingredients']);?>">Cocktails</a></li>
 		</ul>
 	</nav>
-	<div class="container">
-	<?php var_dump(!empty($breadcrumb)) ?>
+	<div class="">
 		<?php if (!empty($breadcrumb)): ?>
 			<nav>
-				<div class="nav-wrapper">
+				<div class="nav-wrapper teal">
 					<div class="col s12">
 						<?php foreach ($breadcrumb as $node): ?>
 							<a href="<?php echo $node['url']; ?>" class="breadcrumb"><?php echo $node['title']; ?></a>
