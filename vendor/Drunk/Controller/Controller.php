@@ -117,7 +117,8 @@ class Controller
 			$tmp = prev($this->breadcrumb);
 			reset($this->breadcrumb);
 			return $tmp;
-		}
+		}elseif(isset($this->models[$name]))
+			return $this->modesl[$name];
 	}
 
 	public function set($name, $value)
@@ -137,9 +138,9 @@ class Controller
 
 	protected function loadModel($modelName)
 	{
-		if (file_exists(PARTS_PATH.DS."Model".DS.$modelName.".php")) {
+		if (file_exists(PARTS_PATH.DS."Models".DS.$modelName.".php")) {
 			$nsp_model = "App\\Models\\".$modelName;
-			if (class_exists($nsp_model, true)) $this->models[] = new $nsp_model();
+			if (class_exists($nsp_model, true)) $this->models[$modelName] = new $nsp_model();
 		}
 	}
 }
