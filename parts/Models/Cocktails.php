@@ -15,32 +15,46 @@ namespace App\Models;
 use Drunk\Model\Model;
 use DDM\DrunkDataManager;
 use DDM\Core\Source\File;
+use App\Models\Entities\CocktailsEntity;
 
 /**
 * 
 */
 class Cocktails extends Model
 {
-	private $file; 
-	public function init()
+	private static $file; 
+	public  function init()
 	{
 		$ddm = DrunkDataManager::getInstance();
-		$this->file = $ddm->load(new File("Donnees.inc.php"), false);
+		self::$file = $ddm->load(new File("Donnees.inc.php"), false);
 
 	}
 
-	public function getAll()
+	public static function getAll()
 	{
-		return $this->file->read()['Recettes'];
+		return self::$file->read()['Recettes'];
 	}
 
-	public function getByIngredient($ingredient)
+	public static function getByIngredient($ingredient)
+	{
+
+		$tmp = array();
+		$recettes = self::$file->read()['Recettes']; 
+		foreach ($recettes as $cocktail) {
+			if (in_array($ingredient, $cocktail['index'])) {
+				$tmp[] = new CocktailsEntity($cocktail['titre'], $cocktail);
+			}
+		}
+		return $tmp;
+	}
+
+	public static function getByIngredients($ingredients)
 	{
 		$tmp = array();
-		$recettes = $this->file->read()['Recettes']; 
-		foreach ($recettes as $cocktail) {
-			if (in_array($ingredient, $recettes)) {
-				$tmp[] = $cocktail;
+		foreach ($ingredients as $ingredient) {
+			$cocktails = self::getByIngredient($ingredient);
+			foreach ($cocktails as $cocktail) {
+				$tmp[$cocktail->name] = $cocktail;
 			}
 		}
 		return $tmp;

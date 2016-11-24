@@ -18,11 +18,11 @@
 	<?php foreach ($cocktails as $cocktail): ?>
 	<li class="collection-item avatar">
 		<div>
-			<?php echo ImgHelper::img("Photos/".$cocktail['titre'].".jpg", ['alt' => $cocktail['titre'], 'not_found' => '', 'class' => 'circle']) ?>
-			<span class="title"><?php echo $cocktail['titre'] ?></span>
+			<?php echo ImgHelper::img("Photos/".$cocktail->name.".jpg", ['alt' => $cocktail->name, 'not_found' => '', 'class' => 'circle']) ?>
+			<span class="title"><?php echo $cocktail->name ?></span>
 
-			<p><?php echo $cocktail['preparation'] ?></p>
-			<?php foreach ($cocktail['index'] as $tag): ?>
+			<p><?php echo $cocktail->preparation; ?></p>
+			<?php foreach ($cocktail->tags as $tag): ?>
 				<div class="chip"><i class="material-icons tiny">label_outline</i><a href="#"><?php echo $tag ?></a></div>
 			<?php endforeach ?>
 			<a href="#" class="secondary-content"><i class="material-icons">send</i></a>

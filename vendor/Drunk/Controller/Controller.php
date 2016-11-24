@@ -118,7 +118,7 @@ class Controller
 			reset($this->breadcrumb);
 			return $tmp;
 		}elseif(isset($this->models[$name]))
-			return $this->modesl[$name];
+			return $this->models[$name];
 	}
 
 	public function set($name, $value)

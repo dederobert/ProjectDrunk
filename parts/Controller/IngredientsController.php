@@ -42,11 +42,13 @@ class IngredientsController extends Controller
 	}
 	
 	public function view($ingredient){
-		$model = new Ingredients();
-		$ingredient = new Cocktails();
-		$this->set("ingredients", $model->get($ingredient));
+		//var_dump($ingredient);
+		//$model = new Ingredients();
+		//$ingredient = new Cocktails();
+		$this->loadModel("Cocktails");
+		$this->set("ingredients", $this->Ingredients->get($ingredient));
 		$this->renderView("ingredients", 'index');
-		$this->set("cocktails", $ingredient->getByIngredient($ingredient));
+		$this->set("cocktails", $this->Cocktails->getByIngredient($ingredient));
 	}
 }
   ?>

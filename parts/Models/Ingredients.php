@@ -15,40 +15,59 @@ namespace App\Models;
 use Drunk\Model\Model;
 use DDM\DrunkDataManager;
 use DDM\Core\Source\File;
-
+use App\Models\Entities\IngredientsEntity;
+use App\Models\Cocktails;
 /**
 * 
 */
 class Ingredients extends Model
 {
-	private $file; 
-	private $hierarchie;
+	private static $file; 
+	private static $hierarchie;
+
+	
 
 	public function init()
 	{
 		$ddm = DrunkDataManager::getInstance();
-		$this->file = $ddm->load(new File("Donnees.inc.php"), false);
-		$this->hierarchie = $this->file->read()['Hierarchie'];
+		self::$file = $ddm->load(new File("Donnees.inc.php"), false);
+		self::$hierarchie = self::$file->read()['Hierarchie'];
 	}
 
-	public function getAll()
+	public static function getAll()
 	{
-		return $this->hierarchie['Aliment'];
+		$ing = new IngredientsEntity('Aliment', self::$hierarchie['Aliment']);
+		$ingredients = self::getAllChild('Aliment');
+		$ing->cocktails = Cocktails::getByIngredients($ingredients);
+		return $ing;
 	}
 
-	public function get($ingredient)
+	public static function get($ingredient)
 	{
-		var_dump($ingredient);
-		if (isset($this->hierarchie[$ingredient])) {
-			return $this->hierarchie[$ingredient];
+		if (isset(self::$hierarchie[$ingredient])) {
+			$ing = new IngredientsEntity($ingredient, self::$hierarchie[$ingredient]);
+			$ingredients = self::getAllChild($ingredient);
+			$ing->cocktails = Cocktails::getByIngredients($ingredients);
+			return $ing;
 		}
 		return false;
 	}
 
-	public function getHierarchie($ingredientName)
+	public static function getHierarchie($ingredientName)
 	{
-		
 	}
 
+	public static function getAllChild($ingredientName)
+	{
+		$tmp = array();
+		$tmp[$ingredientName] = $ingredientName;
+		if (isset(self::$hierarchie[$ingredientName]['sous-categorie'])) {
+			foreach (self::$hierarchie[$ingredientName]['sous-categorie'] as $ingredient) {
+				$tmp = array_merge($tmp, self::getAllChild($ingredient));
+			}
+		}
+		return $tmp;
+	}
+	
 }
  ?>
