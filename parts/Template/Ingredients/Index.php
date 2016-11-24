@@ -22,10 +22,12 @@
 					<?php foreach ($cocktail->tags as $tag): ?>
 						<div class="chip"><i class="material-icons tiny">label_outline</i><a href="<?php echo URLHelper::URL(['controller' => 'ingredients', 'action' => 'view', 'params' => [$tag]]) ?>"><?php echo $tag ?></a></div>
 					<?php endforeach ?>
-					<a href="#" class="secondary-content"><i class="material-icons">send</i></a>
+					<a href="#" class="secondary-content"> <?php echo(ImgHelper::img("empty_heart.png", ["alt"=>"empty_heart", "class"=>"heart heart_empty", "name" => $cocktail->name])); ?></a>
 				</div>
 			</li>
 			<?php endforeach ?>
 		</ul>
 	</div>
 </div>
+<script>var base_url = <?php echo BASE_URL; ?></script>
+<?php echo ScriptHelper::script("heart"); ?>
