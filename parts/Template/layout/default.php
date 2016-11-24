@@ -11,6 +11,7 @@
 		<ul>
 			<li><a href="<?php echo URLHelper::URL(); ?>">Home</a></li>
 			<li><a href="<?php echo URLHelper::URL(['controller' => 'ingredients']);?>">Cocktails</a></li>
+			<li><a href="<?php echo URLHelper::URL(['controller' => 'users', 'action' => 'login']) ?>">Connexion</a></li>
 			<li><a href="#" ><i class="material-icons">loyalty</i></a></li>
 		</ul>
 	</nav>

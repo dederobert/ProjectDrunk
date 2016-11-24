@@ -13,12 +13,15 @@ class ImgHelper
 	* @throws FileException, if the given file doesn't exist
 	*/
 	public static function img($name, $options = array()) {
-		$tmp = $options + [
+		$options = $options+ [
 			'alt' => 'image',
 			'class' => '',
 			'name' => '',
 			'not_found' => false
 		];
+
+		$name = str_replace(" ", "_", $name);
+
 		if (file_exists(join(DS, array(WWW, "imgs", $name)))) {
 			return '<img src="'.BASE_URL."www/imgs/".$name.'" alt="'.$options['alt'].'" class="'.$options['class'].'" name="'.$options['name'].'" />';
 		}else{
