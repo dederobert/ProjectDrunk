@@ -10,6 +10,7 @@
 * @since Version 0.0.1
 * @version 0.0.1
 */
+namespace App\Models\Entities;
 /**
 * 
 */
@@ -17,15 +18,30 @@ class UsersEntity
 {
 	private $username;
 	private $pswd;
-	private $name;
+	private $lastname;
 	private $firstName;
+	private $sexe;
+	private $email;
+	private $ddn;
+	private $address;
+	private $zipcode;
+	private $city;
+	private $phone;
+	private $cocktails = array();
 
-	function __construct($username, $pswd, $name, $firstName)
+	function __construct($username, $pswd, $lastname, $firstName, $sexe, $email, $ddn, $address, $zipcode, $city, $phone)
 	{
 		$this->username = $username;
 		$this->pswd = $pswd;
-		$this->name = $name;
+		$this->lastname = $lastname;
 		$this->firstName = $firstName;
+		$this->sexe = $sexe;
+		$this->email = $email;
+		$this->ddn = $ddn;
+		$this->address = $address;
+		$this->zipcode = $zipcode;
+		$this->city = $city;
+		$this->phone = $phone;
 	}
 
 	public function __set($name, $value)

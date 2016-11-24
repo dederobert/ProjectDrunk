@@ -23,11 +23,22 @@ use App\Models\Entities\CocktailsEntity;
 class Cocktails extends Model
 {
 	private static $file; 
+	private static $recettes;
+
 	public  function init()
 	{
 		$ddm = DrunkDataManager::getInstance();
 		self::$file = $ddm->load(new File("Donnees.inc.php"), false);
+		self::$recettes = self::$file->read()['Recettes']; 
+	}
 
+	public function get($cocktailName)
+	{
+		foreach (self::$recettes as $recette) {
+			if ($recette['titre'] == $cocktailName)
+				return new CocktailsEntity($recette['titre'], $recette);
+		}
+		return false;
 	}
 
 	public static function getAll()
@@ -39,8 +50,7 @@ class Cocktails extends Model
 	{
 
 		$tmp = array();
-		$recettes = self::$file->read()['Recettes']; 
-		foreach ($recettes as $cocktail) {
+		foreach (self::$recettes as $cocktail) {
 			if (in_array($ingredient, $cocktail['index'])) {
 				$tmp[] = new CocktailsEntity($cocktail['titre'], $cocktail);
 			}

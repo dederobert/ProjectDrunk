@@ -22,12 +22,13 @@ class CocktailsController extends Controller
 
 	public function preInit() {
 		parent::preInit();
-		$this->bread = 0;
+		$this->bread = -1;
 	}
 	
 	
 	public function view($cocktail) {
 		//affiche le detail du cocktail $cocktail
+		$this->set('cocktail', $this->Cocktails->get($cocktail));
 	}
 	
 	public function favorite($cocktail) {

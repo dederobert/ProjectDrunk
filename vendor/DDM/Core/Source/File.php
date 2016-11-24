@@ -38,18 +38,20 @@
       if ($this->content == null) {
         if (!file_exists(DrunkDataManager::$dataFolder.DS.$this->name)) {
           if ($create) {
-            mkdir(DrunkDataManager::$dataFolder.DS.dirname($this->name));
+            if (!file_exists(DrunkDataManager::$dataFolder.DS.dirname($this->name)))
+              mkdir(DrunkDataManager::$dataFolder.DS.dirname($this->name));
             file_put_contents(DrunkDataManager::$dataFolder.DS.$this->name, "");
           }else {
             throw new FileException("The request data file ".$this->name." not found", 500);
           }
         }
         // Il inclus seulement les fichiers PHP
-        if (strrpos(DrunkDataManager::$dataFolder.DS.$this->name, ".php") !== false) 
-          include_once DrunkDataManager::$dataFolder.DS.$this->name;
-        //$this->_mime_content_type(DrunkDataManager::$dataFolder.DS.$this->name) == "text/x-php")
-        $this->content['Recettes'] = $Recettes;
-        $this->content['Hierarchie'] = $Hierarchie;
+        if (strrpos(DrunkDataManager::$dataFolder.DS.$this->name, ".php") !== false) {
+            include_once DrunkDataManager::$dataFolder.DS.$this->name;
+          //$this->_mime_content_type(DrunkDataManager::$dataFolder.DS.$this->name) == "text/x-php")
+          $this->content['Recettes'] = $Recettes;
+          $this->content['Hierarchie'] = $Hierarchie;
+        }
       }
     }
 
@@ -78,5 +80,10 @@
     public function save()
     {
       $this->write($this->content, true);
+    }
+
+    public function exists()
+    {
+      return file_exists(DrunkDataManager::$dataFolder.DS.$this->name);
     }
   } ?>

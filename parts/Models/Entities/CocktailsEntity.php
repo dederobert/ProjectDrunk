@@ -17,7 +17,7 @@ namespace App\Models\Entities;
 class CocktailsEntity
 {
 	private $name;
-	private $ingredients;
+	private $ingredients = array();
 	private $preparation;
 	private $tags = array();
 	
@@ -25,7 +25,7 @@ class CocktailsEntity
 	{
 		$this->name = $name;
 		if (isset($cocktail['ingredients']))
-			$this->ingredients = $cocktail['ingredients'];
+			$this->ingredients = explode("|", $cocktail['ingredients']);
 		if (isset($cocktail['preparation']))
 			$this->preparation = $cocktail['preparation'];
 		if (isset($cocktail['index']))

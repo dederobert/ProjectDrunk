@@ -23,6 +23,7 @@ require join(DIRECTORY_SEPARATOR, array(__DIR__, 'vendor', 'autoload.php'));
 use Drunk\Exception\FileException;
 use Drunk\Core\Drunk;
 use Drunk\Core\Router\Router;
+use App\Models\Entities\UsersEntity;
 // var_dump($_SERVER);
 // Demarrage de drunk
 Drunk::start(@$_GET['req']);
