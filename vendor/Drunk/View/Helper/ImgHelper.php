@@ -6,7 +6,6 @@ use Drunk\Exception\FileException;
 */
 class ImgHelper
 {
-
 	/**
 	* Return the path of given image name if exist
 	* 
