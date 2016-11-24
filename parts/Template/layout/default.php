@@ -2,14 +2,16 @@
 <head>
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<?php echo CssHelper::css("materialize.min"); ?>
-	<!--<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL.DS."www".DS."css".DS."materialize.min.css" ?>">-->
+	<?php echo CssHelper::css("Drunk"); ?>
 	<title>Project drunk</title>
+	<?php echo ScriptHelper::script("jquery-3.1.1.min"); ?>
 </head>
 <body>
 	<nav>
 		<ul>
 			<li><a href="<?php echo URLHelper::URL(); ?>">Home</a></li>
 			<li><a href="<?php echo URLHelper::URL(['controller' => 'ingredients']);?>">Cocktails</a></li>
+			<li><a href="#" ><i class="material-icons">loyalty</i></a></li>
 		</ul>
 	</nav>
 	<div class="">
@@ -36,11 +38,10 @@
 		</div>
 		<div class="footer-copyright">
 			<div class="container">
-				&copy;&nbsp;2016 The A-Team 
+				&copy;&nbsp;2016 The A-Team 
 			</div>
 		</div>
 	</footer>
 	<?php echo ScriptHelper::script("materialize.min"); ?>
-	<!--<script src="<?php echo WWW.DS."js".DS."materialize.min.js" ?>"></script>-->
 </body>
 </html>

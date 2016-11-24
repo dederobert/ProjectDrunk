@@ -133,7 +133,7 @@ class Controller
 
 	protected function renderLayout($layoutName)
 	{
-		Drunk::loadLayout("layout", $layoutName);
+		Drunk::loadLayout($layoutName);
 	}
 
 	protected function loadModel($modelName)

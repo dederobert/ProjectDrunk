@@ -14,8 +14,6 @@ namespace App\Controller;
 
 use Drunk\Controller\Controller;
 
-//TEMP
-use App\Models\Cocktails;
 /**
 * 
 */
@@ -27,10 +25,20 @@ class CocktailsController extends Controller
 		$this->bread = 0;
 	}
 	
-	public function index()
-	{
-		$model = new Cocktails();
-		$this->set("cocktails", $model->getAll());
+	
+	public function view($cocktail) {
+		//affiche le detail du cocktail $cocktail
+	}
+	
+	public function favorite($cocktail) {
+		$this->renderLayout('ajax');
+		// Enregistrer le favorie
+	}
+	
+	public function unfavorite($cocktail) {
+		$this->renderLayout('ajax');
+		$this->renderView('cocktails', 'favorite');
+		// Desenregistrer le favorie
 	}
 }
   ?>
