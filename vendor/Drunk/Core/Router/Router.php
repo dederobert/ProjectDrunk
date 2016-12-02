@@ -44,7 +44,7 @@ class Router{
 				$controller = new $nsp_ctrl_name(new Scope($previous_scp), $this->controllerName, $this->actionName, $this->params);
 				if (method_exists($controller, $this->actionName)) {
 					$action_name = $this->actionName;
-					$controller->$action_name(...$this->params);
+					$controller->$action_name($this->params);
 				}else{
 					throw new Exception("The method ".$this->actionName." not found",404);
 				}
