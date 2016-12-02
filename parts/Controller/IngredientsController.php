@@ -45,6 +45,7 @@ class IngredientsController extends Controller
 		//var_dump($ingredient);
 		//$model = new Ingredients();
 		//$ingredient = new Cocktails();
+		$ingredient = $ingredient[0];
 		$this->loadModel("Cocktails");
 		$this->set("ingredients", $this->Ingredients->get($ingredient));
 		$this->renderView("ingredients", 'index');
