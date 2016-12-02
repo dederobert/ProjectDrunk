@@ -23,12 +23,14 @@ class DrunkDataManager
 {
 
 	private static $instance;
-	public static $dataFolder = ROOT.DS."data";
+	public static $dataFolder;
 	
 	private $sourceLoaders = array();
 
 	private function __construct()
 	{
+		if (self::$dataFolder == null) = self::$dataFolder = join(DS, array(ROOT,"data"));
+		
 		if (!is_dir(self::$dataFolder)) {
 			mkdir(self::$dataFolder);
 		}else{
