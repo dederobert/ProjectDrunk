@@ -21,8 +21,7 @@ use App\Models\Entities\UsersEntity;
 */
 class Users extends Model
 {
-	private static $salt = '$2a$07$usesomesillystringforsalt$';
-	private static$userFile;
+	private static $userFile;
 
 	public static function load()
 	{
@@ -32,11 +31,13 @@ class Users extends Model
 				self::$userFile = new File("users/".$_SESSION['user']['username'].".data", "rw");
 				$ddm->load(self::$userFile, true);
 				if (empty(($read=self::$userFile->read()))) {
-					$_SESSION['user'] = new Users($_SESSION['user']['username'], $_SESSION['user']['pswd'], $_SESSION['user']['name'],$_SESSION['firstName']);
+					$_SESSION['user'] = serialize(
+						new Users($_SESSION['user']['username'], $_SESSION['user']['pswd'], $_SESSION['user']['name'],$_SESSION['firstName'])
+						);
 				}else{
-					$_SESSION['user'] = unserialize($read);
+					$_SESSION['user'] = $read;
 				}
-				return $_SESSION['user'];
+				return unserialize($read);
 			}
 		}else{
 			return new UsersEntity(null, null, "", "");
@@ -51,7 +52,7 @@ class Users extends Model
 			$ddm->load(self::$userFile, false);
 			if (!empty(($read = self::$userFile->read()))) {
 				$user = unserialize($read);
-				if ($user->password == crypt($password,self::$salt)) {
+				if ($user->comparePassword($password)) {
 					$_SESSION['user'] = $read;
 					return $user;
 				}
@@ -64,7 +65,6 @@ class Users extends Model
 		$ddm = DrunkDataManager::getInstance();
 		self::$userFile = new File("users/".$username.".data", "rw");
 		if (!self::$userFile->exists()){
-			$password = crypt($password, self::$salt);
 			$user = new UsersEntity($username, $password, $lastname, $firstname, $sexe, 
 				$email, $ddn, $address, $zipcode, $city, $phone
 				);
@@ -77,5 +77,12 @@ class Users extends Model
 		return false;
 	}
 
+	public static function save($user) {
+		$ddm = DrunkDataManager::getInstance();
+		self::$userFile = new File("users/".$user->username.".data", "rw");
+		$srzUser = serialize($user);
+		self::$userFile->write($srzUser, true);
+		$_SESSION['user'] = $srzUser;
+	}
 }
  ?>

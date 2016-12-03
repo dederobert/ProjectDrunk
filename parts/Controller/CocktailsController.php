@@ -30,16 +30,5 @@ class CocktailsController extends Controller
 		//affiche le detail du cocktail $cocktail
 		$this->set('cocktail', $this->Cocktails->get($cocktail));
 	}
-	
-	public function favorite($cocktail) {
-		$this->renderLayout('ajax');
-		// Enregistrer le favorie
-	}
-	
-	public function unfavorite($cocktail) {
-		$this->renderLayout('ajax');
-		$this->renderView('cocktails', 'favorite');
-		// Desenregistrer le favorie
-	}
 }
   ?>

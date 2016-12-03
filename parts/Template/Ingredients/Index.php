@@ -2,12 +2,16 @@
 	<!-- Affichage de la hierarchies -->
 	<div class="col s12 m3">
 		<?php if ($ingredients->hasSousCategorie): ?>	
-		<ul>
+		<div class="collection with-header pinned center">
+			<h4 class="collection-header">Navigation</h4>
 			<?php foreach($ingredients->sousCategorie as $ingredient): ?>
-			<li><?php echo URLHelper::link(['controller' => 'Ingredients', 'action' => 'view', 'params' => [$ingredient]],
-			$ingredient); ?></li>
+			<a href="<?php echo URLHelper::URL(['controller' => 'Ingredients', 'action' => 'view', 'params' => [$ingredient]]); ?>"
+					class="collection-item">
+				<?php echo $ingredient; ?>
+			</a>
+			
 			<?php endforeach; ?>
-		</ul>	
+		</div>	
 		<?php endif ?>
 	</div>
 	<!-- Affichage des cocktails-->
@@ -26,7 +30,7 @@
 				<div class="collapsible-body">
 					<a class="grey-text text-lighten-3" href="<?php echo URLHelper::URL(['controller' => 'cocktails', 'action' => 'view', 'params' => [$cocktail->name]]) ?>"><i class="material-icons">info</i>Voir</a>
 					<h4>Ingrédients</h4>
-					<ul>
+					<ul class="browser-default">
 						<?php foreach ($cocktail->ingredients as $ingredient): ?>
 							<li><?php echo $ingredient ?></li>
 						<?php endforeach ?>

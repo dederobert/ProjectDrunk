@@ -35,7 +35,7 @@
   	{
   		$this->set("title", "Hello world");
   		$this->renderView("pages",$page);
-      $this->set("ddm", DrunkDataManager::getInstance()->get(0));
+      // $this->set("ddm", DrunkDataManager::getInstance()->get(0));
   	}
 
     public function test($i)

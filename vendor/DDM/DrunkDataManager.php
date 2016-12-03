@@ -64,7 +64,8 @@ class DrunkDataManager
 	public function get($i)
 	{
 		if ($i < count($this->sourceLoaders) && $i >= 0) {
-			return $this->sourceLoader[$i];
+			var_dump($this);
+			return $this->sourceLoaders[$i];
 		}
 	}
 }

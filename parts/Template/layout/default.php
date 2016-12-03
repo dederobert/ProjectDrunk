@@ -7,7 +7,7 @@
 	<?php echo ScriptHelper::script("jquery-3.1.1.min"); ?>
 </head>
 <body>
-	<header>
+	<header id="top">
 		<div class="navbar-fixed">
 			<nav>
 				<div class="nav-wrapper">
@@ -45,6 +45,7 @@
 			<?php endif ?>
 			<!-- Inclusion du contenue de la page depuis le dossier parts/nom_controller -->
 			<?php include $viewPath; ?>
+			<a href="#top" class="right pinned back-top waves-effect waves-circle waves-light btn-floating secondary-content">^</a>
 		</div>
 	</main>
 	<footer class="page-footer">
@@ -55,7 +56,8 @@
 		</div>
 		<div class="footer-copyright">
 			<div class="container">
-				&copy;&nbsp;2016 The A-Team 
+			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+			<br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.	
 			</div>
 		</div>
 	</footer>

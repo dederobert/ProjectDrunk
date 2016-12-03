@@ -1,1 +1,0 @@
-<a href="<?php echo BASE_URL.DS."pages".DS."bread" ?>">test fil 2</a>
