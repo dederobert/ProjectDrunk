@@ -21,14 +21,14 @@ class ErrorController extends Controller
 	public function e404($error)
 	{
 		header("HTTP/1.0 404 Not Found");
-		$this->set("message",$error->getMessage());
-		$this->set("trace",$error->getTrace());
+		$this->set("message",$error[0]->getMessage());
+		$this->set("trace",$error[0]->getTrace());
 	}
 
 	public function e500($error)
 	{
-		$this->set("message", $error->getMessage());
-		$this->set("trace",$error->getTrace());
+		$this->set("message", $error[0]->getMessage());
+		$this->set("trace",$error[0]->getTrace());
 	}
   	
 } ?>

@@ -72,7 +72,10 @@ class Drunk
 	
 	public static function loadRender($folderName,$viewName)
 	{
-		Drunk::$view->view = join(DS,array(PARTS_PATH,"Template",$folderName,$viewName.".php"));
+		if (is_array($viewName)) 
+			Drunk::$view->view = join(DS,array(PARTS_PATH,"Template",$folderName,$viewName[0].".php"));
+		else
+			Drunk::$view->view = join(DS,array(PARTS_PATH,"Template",$folderName,$viewName.".php"));
 	}
 
 	public static function loadLayout($layoutName)
