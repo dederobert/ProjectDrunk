@@ -78,11 +78,19 @@ class Users extends Model
 	}
 
 	public static function save($user) {
-		$ddm = DrunkDataManager::getInstance();
-		self::$userFile = new File("users/".$user->username.".data", "rw");
 		$srzUser = serialize($user);
-		self::$userFile->write($srzUser, true);
+		
+		if ($user->username != null) {
+			$ddm = DrunkDataManager::getInstance();
+			self::$userFile = new File("users/".$user->username.".data", "rw");
+			self::$userFile->write($srzUser, true);
+		}
+		
 		$_SESSION['user'] = $srzUser;
+	}
+
+	public function blankUser() {
+		return new UsersEntity(null, "", "", "", "", "", "", "", "", "", "");
 	}
 }
  ?>

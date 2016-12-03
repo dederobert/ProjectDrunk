@@ -23,7 +23,7 @@
 							<li><a href="<?php echo URLHelper::URL(['controller' => 'users', 'action' => 'logout']) ?>">Deconnexion</a></li>
 							<li><a href="<?php echo URLHelper::URL(['controller' => 'users', 'action' => 'view', 'params'=>[$user->username]]) ?>">Profil</a></li>
 						<?php endif ?>
-						<li><a href="#" ><i class="material-icons">loyalty</i></a></li>
+						<li><a href="<?php echo URLHelper::URL(['controller' => 'users', 'action' => 'cocktails']) ?>" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Vos favories"><i class="material-icons">loyalty</i></a></li>
 					</ul>
 				</div>
 			</nav>

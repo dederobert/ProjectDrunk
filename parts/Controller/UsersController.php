@@ -122,16 +122,43 @@ class UsersController extends Controller
 		$this->set('phone', $phone);	
 	}
 
+	public function cocktails()
+	{
+		if (isset($_SESSION['user'])) {
+			$user = unserialize($_SESSION['user']);
+			$this->set('cocktails', $user->cocktails);
+		}else{
+			$this->set('cocktails', array());
+		}
+	}
+
 	public function favorite($cocktail) {
 		$this->renderLayout('ajax');
+		$this->loadModel('Cocktails');
+		$cockt = $this->Cocktails->get($cocktail[0]);
 		// Enregistrer le favorie
-		
+		if (isset($_SESSION['user']))
+			$user = unserialize($_SESSION['user']);
+		else
+			$user = $this->Users->blankUser();
+
+
+		$user->add($cockt);
+		$this->Users->save($user);
 	}
 	
 	public function unfavorite($cocktail) {
 		$this->renderLayout('ajax');
-		$this->renderView('cocktails', 'favorite');
+		$this->renderView('users', 'favorite');
+
+		$this->loadModel('Cocktails');
+		$cockt = $this->Cocktails->get($cocktail[0]);
 		// Desenregistrer le favorie
+		if (isset($_SESSION['user']) && $cockt) {
+			$user = unserialize($_SESSION['user']);
+			$user->remove($cockt);
+			$this->Users->save($user);
+		}
 	}
 	
 }

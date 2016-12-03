@@ -29,7 +29,7 @@ class DrunkDataManager
 
 	private function __construct()
 	{
-		if (self::$dataFolder == null) = self::$dataFolder = join(DS, array(ROOT,"data"));
+		if (self::$dataFolder == null) self::$dataFolder = join(DS, array(ROOT,"data"));
 		
 		if (!is_dir(self::$dataFolder)) {
 			mkdir(self::$dataFolder);

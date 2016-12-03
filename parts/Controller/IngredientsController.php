@@ -31,6 +31,15 @@ class IngredientsController extends Controller
 			$this->bread = 0;
 		
 		$this->breadKey = isset($this->params[0])?$this->params[0]:"Aliment";
+
+		$favCocktail = array();
+		if (isset($_SESSION['user'])) {
+			$cocktails = unserialize($_SESSION['user'])->cocktails;
+			foreach ($cocktails as $cocktail) {
+				$favCocktail[] = $cocktail->name;
+			}
+		}
+		$this->set('favCocktail', $favCocktail);
 	}
 	
 	public function index()

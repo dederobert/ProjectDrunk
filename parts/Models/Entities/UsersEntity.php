@@ -96,11 +96,25 @@ class UsersEntity
 			return $this->city;
 		elseif ($name == "phone")
 			return $this->phone;
+		elseif ($name == "cocktails")
+			return $this->cocktails;
 	}
 
 	public function comparePassword($password)
 	{
 		return $this->password == crypt($password, self::$salt);
+	}
+
+	public function add($cocktail)
+	{
+		if (!in_array($cocktail, $this->cocktails))
+			$this->cocktails[] = $cocktail;
+	}
+
+	public function remove($cocktail)
+	{
+		if(in_array($cocktail, $this->cocktails))
+			unset($this->cocktails[array_search($cocktail, $this->cocktails)]);
 	}
 }
  ?>

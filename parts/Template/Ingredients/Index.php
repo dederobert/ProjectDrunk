@@ -42,11 +42,19 @@
 					<?php endforeach ?>
 				</div>
 				<!-- Favorie-->
-					<a href="#" class="secondary-content bnt tooltipped" data-position="left" data-delay="50" data-tooltip="Ajouter aux favories">
-					 <?php echo(ImgHelper::img("empty_heart.png", 
-					 	["alt"=>"empty_heart", "class"=>"heart heart_empty", "name" => $cocktail->name])
-					 ); ?>
-					</a>
+					<?php if (in_array($cocktail->name, $favCocktail)): ?>
+						<a href="#" class="secondary-content bnt tooltipped" data-position="left" data-delay="50" data-tooltip="Retirer aux favories">
+						 <?php echo(ImgHelper::img("full_heart.png", 
+						 	["alt"=>"full_heart", "class"=>"heart heart_full", "name" => $cocktail->name])
+						 ); ?>
+						</a>
+					<?php else: ?>
+						<a href="#" class="secondary-content bnt tooltipped" data-position="left" data-delay="50" data-tooltip="Ajouter aux favories">
+						 <?php echo(ImgHelper::img("empty_heart.png", 
+						 	["alt"=>"empty_heart", "class"=>"heart heart_empty", "name" => $cocktail->name])
+						 ); ?>
+						</a>
+					<?php endif ?>
 			</li>
 			<?php endforeach ?>
 		</ul>
