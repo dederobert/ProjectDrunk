@@ -46,6 +46,13 @@ class Users extends Model
 
 	public function connect($username, $password)
 	{
+		$fav = array();
+		if (isset($_SESSION['user'])) {
+			$sessuser = unserialize($_SESSION['user']);
+			if ($sessuser == null) {
+				$fav = $sessuser->cocktails;
+			}
+		}
 		$ddm = DrunkDataManager::getInstance();
 		self::$userFile = new File("users/".$username.".data", "rw");
 		if (self::$userFile->exists()) {
@@ -53,6 +60,9 @@ class Users extends Model
 			if (!empty(($read = self::$userFile->read()))) {
 				$user = unserialize($read);
 				if ($user->comparePassword($password)) {
+					//On fusionne les favories
+					$user->mergeCocktail($fav);
+					$this->save($user);
 					$_SESSION['user'] = $read;
 					return $user;
 				}

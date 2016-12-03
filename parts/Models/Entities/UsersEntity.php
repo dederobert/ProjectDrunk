@@ -116,5 +116,10 @@ class UsersEntity
 		if(in_array($cocktail, $this->cocktails))
 			unset($this->cocktails[array_search($cocktail, $this->cocktails)]);
 	}
+
+	public function mergeCocktail($cocktails)
+	{
+		$this->cocktails = array_merge($this->cocktails, $cocktails);
+	}
 }
  ?>
