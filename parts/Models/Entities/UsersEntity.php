@@ -119,7 +119,10 @@ class UsersEntity
 
 	public function mergeCocktail($cocktails)
 	{
-		$this->cocktails = array_merge($this->cocktails, $cocktails);
+		foreach ($cocktails as $cocktail) {
+			if(!in_array($cocktail, $this->cocktails))
+				$this->add($cocktail);
+		}
 	}
 }
  ?>

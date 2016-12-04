@@ -46,13 +46,14 @@ class Users extends Model
 
 	public function connect($username, $password)
 	{
+		// On récupère les cocktails favories en session
 		$fav = array();
-		if (isset($_SESSION['user'])) {
-			$sessuser = unserialize($_SESSION['user']);
-			if ($sessuser == null) {
-				$fav = $sessuser->cocktails;
-			}
-		}
+		if (isset($_SESSION['favories']))
+			foreach ($_SESSION['favories'] as $favorie)
+				$fav[] = unserialize($favorie);
+	
+		var_dump($fav);
+
 		$ddm = DrunkDataManager::getInstance();
 		self::$userFile = new File("users/".$username.".data", "rw");
 		if (self::$userFile->exists()) {
@@ -63,7 +64,8 @@ class Users extends Model
 					//On fusionne les favories
 					$user->mergeCocktail($fav);
 					$this->save($user);
-					$_SESSION['user'] = $read;
+					$_SESSION['user'] = serialize($user);
+					unset($_SESSION['favories']);
 					return $user;
 				}
 			}
@@ -72,16 +74,25 @@ class Users extends Model
 	}
 
 	public function register($username, $password, $lastname, $firstname, $sexe, $email, $ddn, $address, $zipcode, $city, $phone) {
+		// On récupère les cocktails favories en session
+		$fav = array();
+		if (isset($_SESSION['favories']))
+			foreach ($_SESSION['favories'] as $favorie)
+				$fav[] = unserialize($favorie);
+
 		$ddm = DrunkDataManager::getInstance();
 		self::$userFile = new File("users/".$username.".data", "rw");
 		if (!self::$userFile->exists()){
 			$user = new UsersEntity($username, $password, $lastname, $firstname, $sexe, 
 				$email, $ddn, $address, $zipcode, $city, $phone
 				);
+			// On ajoute les favories
+			$user->mergeCocktail($fav);
 			$ddm->load(self::$userFile, true);
 			$srzUser = serialize($user);
 			self::$userFile->write($srzUser, true);
 			$_SESSION['user'] = $srzUser;
+			unset($_SESSION['favories']);
 			return $user;
 		}
 		return false;

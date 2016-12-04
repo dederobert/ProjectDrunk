@@ -38,6 +38,10 @@ class IngredientsController extends Controller
 			foreach ($cocktails as $cocktail) {
 				$favCocktail[] = $cocktail->name;
 			}
+		}elseif (isset($_SESSION['favories'])) {
+			foreach ($_SESSION['favories'] as $favorie) {
+				$favCocktail[] = unserialize($favorie)->name;
+			}
 		}
 		$this->set('favCocktail', $favCocktail);
 	}

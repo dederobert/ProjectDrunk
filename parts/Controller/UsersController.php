@@ -127,26 +127,43 @@ class UsersController extends Controller
 		if (isset($_SESSION['user'])) {
 			$user = unserialize($_SESSION['user']);
 			$this->set('cocktails', $user->cocktails);
-		}else{
+		}elseif (isset($_SESSION['favories'])) {
+			$cocktails = array();
+			foreach ($_SESSION['favories'] as $favories) {
+				$cocktails[] = unserialize($favories);
+			}
+			$this->set('cocktails', $cocktails);
+		}else
 			$this->set('cocktails', array());
-		}
 	}
 
+	/**
+	* <i>Action</i> <br>
+	* Permet d'ajouter un cocktail aux favories
+	*
+	* $cocktail Array, cocktail à ajouter aux favories
+	*/
 	public function favorite($cocktail) {
 		$this->renderLayout('ajax');
 		$this->loadModel('Cocktails');
+
 		$cockt = $this->Cocktails->get($cocktail[0]);
 		// Enregistrer le favorie
-		if (isset($_SESSION['user']))
+		if (isset($_SESSION['user'])) {
 			$user = unserialize($_SESSION['user']);
-		else
-			$user = $this->Users->blankUser();
-
-
-		$user->add($cockt);
-		$this->Users->save($user);
+			$user->add($cockt);
+			$this->Users->save($user);
+		}else {
+			$_SESSION['favories'][] = serialize($cockt);
+		}
 	}
 	
+	/**
+	* <i>Action</i> <br>
+	* Permet de retirer un cocktail des favories
+	*
+	* $cocktail Array, cocktail à retirer des favories
+	*/
 	public function unfavorite($cocktail) {
 		$this->renderLayout('ajax');
 		$this->renderView('users', 'favorite');
@@ -154,10 +171,14 @@ class UsersController extends Controller
 		$this->loadModel('Cocktails');
 		$cockt = $this->Cocktails->get($cocktail[0]);
 		// Desenregistrer le favorie
-		if (isset($_SESSION['user']) && $cockt) {
-			$user = unserialize($_SESSION['user']);
-			$user->remove($cockt);
-			$this->Users->save($user);
+		if ($cockt) {
+			if (isset($_SESSION['user'])) {
+				$user = unserialize($_SESSION['user']);
+				$user->remove($cockt);
+				$this->Users->save($user);
+			}else{
+				unset($_SESSION['favories'][array_search(serialize($cockt), $_SESSION['favories'])]);
+			}
 		}
 	}
 	
