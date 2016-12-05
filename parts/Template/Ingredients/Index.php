@@ -28,7 +28,9 @@
 				</div>
 				<!-- Ingrédients et prépartion-->
 				<div class="collapsible-body">
-					<a class="grey-text text-lighten-3" href="<?php echo URLHelper::URL(['controller' => 'cocktails', 'action' => 'view', 'params' => [$cocktail->name]]) ?>"><i class="material-icons">info</i>Voir</a>
+					<a class="grey-text text-lighten-3" href="<?php echo URLHelper::URL(['controller' => 'cocktails', 'action' => 'view', 'params' => [$cocktail->name]]) ?>">
+						<i class="material-icons">info</i>Voir
+					</a>
 					<h4>Ingrédients</h4>
 					<ul class="browser-default">
 						<?php foreach ($cocktail->ingredients as $ingredient): ?>
@@ -38,18 +40,21 @@
 					<h4>Préparation</h4>
 					<p><?php echo $cocktail->preparation ?></p>
 					<?php foreach ($cocktail->tags as $tag): ?>
-						<div class="chip"><i class="material-icons tiny">label_outline</i><a href="<?php echo URLHelper::URL(['controller' => 'ingredients', 'action' => 'view', 'params' => [$tag]]) ?>"><?php echo $tag ?></a></div>
+						<div class="chip">
+							<i class="material-icons tiny">label_outline</i>
+							<a href="<?php echo URLHelper::URL(['controller' => 'ingredients', 'action' => 'view', 'params' => [$tag]]) ?>"><?php echo $tag ?></a>
+						</div>
 					<?php endforeach ?>
 				</div>
 				<!-- Favorie-->
 					<?php if (in_array($cocktail->name, $favCocktail)): ?>
-						<a href="#" class="secondary-content bnt tooltipped" data-position="left" data-delay="50" data-tooltip="Retirer aux favories">
+						<a href="#" class="secondary-content bnt tooltipped" data-position="left" data-delay="50" data-tooltip="Retirer aux favoris">
 						 <?php echo(ImgHelper::img("full_heart.png", 
 						 	["alt"=>"full_heart", "class"=>"heart heart_full", "name" => $cocktail->name])
 						 ); ?>
 						</a>
 					<?php else: ?>
-						<a href="#" class="secondary-content bnt tooltipped" data-position="left" data-delay="50" data-tooltip="Ajouter aux favories">
+						<a href="#" class="secondary-content bnt tooltipped" data-position="left" data-delay="50" data-tooltip="Ajouter aux favoris">
 						 <?php echo(ImgHelper::img("empty_heart.png", 
 						 	["alt"=>"empty_heart", "class"=>"heart heart_empty", "name" => $cocktail->name])
 						 ); ?>
